@@ -11,23 +11,19 @@ interface
 
     function listeDeChoix(ligne, colonne, nbChoix: Integer): Integer;
 
+    function demanderOuiOuNon(question: string): Integer;
+
     const LARGEUR = 100;
           HAUTEUR = 30;
 
 implementation       
-    uses GestionEcran, Crt, Math;
+    uses GestionEcran, SysUtils;
                                                                                                         
     const PALETTE_TEXTE: array [0..4] of Byte = (White, LightBlue, LightCyan, LightGreen, LightRed);
           PALETTE_FOND:  array [0..4] of Byte = (Black, Blue,      Cyan,      Green,      Red);
-          EXTREMITE_ECRAN: coordonnees = (x: LARGEUR; y: HAUTEUR);
 
     var couleurTextePrecedente,
         couleurFondPrecedente: Byte;
-
-    function vraiModulo(a, b: Integer): Integer;
-    begin
-       vraiModulo := a - (floor(a / b)) * b;
-    end;
 
     procedure IHM_Initialiser;
     begin
@@ -38,7 +34,7 @@ implementation
     begin
         couleurTextePrecedente := PALETTE_TEXTE[ctexte];
         couleurFondPrecedente  := PALETTE_FOND[cfond];
-        textColor(couleurTextePrecedente);
+        couleur(couleurTextePrecedente, couleurFondPrecedente);
     end;
 
     procedure texteCentre(texte: String; ligne: Integer = -1);
@@ -68,31 +64,25 @@ implementation
     var
         touche: Char;
         pos: coordonnees;
+        i: Integer;
     begin
         listeDeChoix := 0;
-        pos.x := colonne; pos.y := ligne;
-        ecrireEnPosition(pos, '>');
-        deplacerCurseur(EXTREMITE_ECRAN);
 
-        while touche <> #13 do begin
-            touche := readKey;
-
-            if touche = #0 then begin
-                touche := readKey;
-
-                if touche = 'P' then begin
-                    listeDeChoix += 1;
-                end else if touche = 'H' then begin
-                    listeDeChoix -= 1;
-                end;
-                listeDeChoix := vraiModulo(listeDeChoix, nbChoix);
-
-                ecrireEnPosition(pos, ' ');
-                pos.y := ligne + listeDeChoix*2;
-                ecrireEnPosition(pos, '>');
-                deplacerCurseur(EXTREMITE_ECRAN);
-            end;
+        pos.x := colonne-1;
+        for i := 0 to nbChoix do begin
+            pos.y := ligne + i*2;
+            ecrireEnPosition(pos, '[' + intToStr(i+1) + ']');
         end;
+
+        readln;
+    end;
+
+    function demanderOuiOuNon(question: string): Integer;
+    begin
+        couleur(2, 1);
+        dessinerCadreXY(25, 10, 75, 20, double, couleurTextePrecedente, couleurFondPrecedente);
+        readln;
+        demanderOuiOuNon := 1;
     end;
 
 end.

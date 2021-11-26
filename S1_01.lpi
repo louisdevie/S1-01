@@ -26,11 +26,30 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <Units Count="1">
+    <Units Count="5">
       <Unit0>
         <Filename Value="S1_01.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="Ecrans.ps"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="ecran.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Ecran"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="aideihm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="AideIHM"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="menus.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Menus"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

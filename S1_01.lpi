@@ -26,7 +26,7 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="S1_01.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -50,6 +50,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Menus"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="inventaire.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Inventaire"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

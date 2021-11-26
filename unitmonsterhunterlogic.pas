@@ -122,6 +122,7 @@ begin
      else quitter();
 end;
 
+
 //ajoute ressource
 //marché si il choisi 1 il achete bombe si il choisi 2 il achete diament :=> or = or.principal-or;habille
 

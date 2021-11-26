@@ -1,7 +1,13 @@
+{
+ Les différentes sections du jeu
+}
 unit Ecrans;
 
 interface
 
+     // affiche le menu principal
+     // renvoie : 0 si l'utilisateur veut quitter
+     //           1 si l'utilisateur veut commencer une nouvelle partie
      function IHM_EcranAccueil: integer;
 
 implementation
@@ -12,7 +18,7 @@ implementation
         choix: Integer;
     begin
         choix := 0;
-        while choix = 0 do begin
+        while choix = 0 do begin // demander à nouveau si la saisie de l'utilisateur n'est pas valide
             IHM_Couleur(1, 0);
             IHM_Effacer;
             IHM_TexteCentre('=== Monster Hunter : New world ===', 5);

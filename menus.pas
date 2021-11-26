@@ -1,7 +1,11 @@
+{
+ ... les menus
+}
 unit Menus;
 
 interface
 
+    // affiche un dialogue qui demande à l'utilisateur de confirmer qu’il veut bien quitter
     function IHM_MenuQuitter: Boolean;
 
 implementation

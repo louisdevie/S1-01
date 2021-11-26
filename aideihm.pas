@@ -1,32 +1,50 @@
+{
+ Unité "helper" pour l'IHM
+}
 unit AideIHM;
 
 interface
 
+    // Fixe la taille de la console
     procedure IHM_Initialiser;
 
+    // Change la couleur du texte et de l'arrière-plan
+    // Voir les palettes pour les couleurs disponibles
     procedure IHM_Couleur(ctexte, cfond: Integer);
 
+    // efface toute la console
     procedure IHM_Effacer;
 
+    // affiche du texte centré
+    // si la ligne n'est pas précisée ou -1, affiche sur la ligne courante du curseur
     procedure IHM_TexteCentre(texte: String; ligne: Integer = -1);
+    // affiche du texte aligné à gauche                               
+    // si la ligne/colonne n'est pas précisée ou -1, affiche à la position courante du curseur
     procedure IHM_TexteGauche(texte: String; ligne: Integer = -1; colonne: Integer = -1);
 
+    // Utilitaire pour liste de choix
+    // ligne et colonne sont la position où placer les puces
     function IHM_ListeDeChoix(ligne, colonne, nbChoix: Integer): Integer;
 
+    // Affiche un cadre avec une question par laquelle l'utilisateur peut répondre par oui ou non
     function IHM_DemanderOuiOuNon(question: string): Integer;
 
+    // Taille de la console
     const LARGEUR = 100;
           HAUTEUR = 30;
 
 implementation       
     uses GestionEcran, SysUtils;
-                                                                                                        
+
+    // palette de couleurs                       normal accent. 1  accent. 2  spécial 1   spécial 2
     const PALETTE_TEXTE: array [0..4] of Byte = (WHITE, LIGHTBLUE, LIGHTCYAN, LIGHTGREEN, LIGHTRED);
           PALETTE_FOND:  array [0..4] of Byte = (BLACK, BLUE,      CYAN,      GREEN,      RED     );
 
+    // dernières couleurs utilisées
     var couleurTextePrecedente,
         couleurFondPrecedente: Byte;
 
+    // raccourci pour dessinerCadre()
     procedure cadre(gauche, droite, haut, bas: Integer; bordure: TypeBordure);
     var c1, c2 : coordonnees;
     begin                  
@@ -59,7 +77,9 @@ implementation
             pos.y := ligne
         else
             pos := positionCurseur;
+
         pos.x := (LARGEUR - length(texte)) div 2;
+
         ecrireEnPosition(pos, texte);
     end;
 
@@ -74,6 +94,8 @@ implementation
         ecrireEnPosition(pos, texte);
     end;
 
+    // Si l'utilisateur entre un nombre entier positif,
+    // mets ce nombre dans n, sinon ne modifie pas n
     procedure saisirNombre(var n: Integer);
     var
         pos: Coordonnees;
@@ -107,6 +129,8 @@ implementation
             n := resultat;
     end;
 
+    // Si l'utilisateur entre O, mets n à 1,
+    // sinon mets n à 0
     procedure saisirBooleen(var n: Integer);
     var
         pos: Coordonnees;
@@ -132,6 +156,7 @@ implementation
         pos: coordonnees;
         i: Integer;
     begin
+        // affichage des puces
         pos.x := colonne-1;
         for i := 1 to nbChoix do begin
             pos.y := ligne + (i - 1)*2;
@@ -139,7 +164,7 @@ implementation
         end;
 
         IHM_ListeDeChoix := 0;
-        while (IHM_ListeDeChoix < 1) or (IHM_ListeDeChoix > nbChoix) do
+        while (IHM_ListeDeChoix < 1) or (IHM_ListeDeChoix > nbChoix) do // recommencer si la saisie n'est pas valide
             saisirNombre(IHM_ListeDeChoix);
     end;
 

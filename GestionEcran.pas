@@ -302,7 +302,7 @@ implementation
       sleep(millisecondes);
     end;
 
-	procedure couleurs(ct, cf : byte);
+    procedure couleurs(ct, cf : byte);
     begin
       couleurTexte(ct);
 	  couleurFond(cf);

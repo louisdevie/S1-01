@@ -1,6 +1,6 @@
 program S1_01;
 
-uses Ecrans, AideIHM;
+uses Ecrans, AideIHM, Menus;
 
 begin
   IHM_Initialiser;

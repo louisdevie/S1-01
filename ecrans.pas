@@ -5,7 +5,7 @@ interface
      function IHM_EcranAccueil: integer;
 
 implementation
-    uses AideIHM;
+    uses AideIHM, Menus;
 
     function IHM_EcranAccueil: integer;
     var
@@ -24,10 +24,8 @@ implementation
             choix := IHM_ListeDeChoix(10, 25, 2);
             if choix = 1 then
                 IHM_EcranAccueil := 1
-            else begin
-                choix := IHM_DemanderOuiOuNon('Voulez-vous vraiment quitter ?');
-                if choix = 1 then IHM_EcranAccueil := 0;
-            end;
+            else if IHM_MEnuQuitter then
+                IHM_EcranAccueil := 0;
         end;
     end;
 

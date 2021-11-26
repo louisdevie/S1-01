@@ -28,6 +28,9 @@ interface
 
         TypeCoffre = array [0..29] of TypeObjets;
 
+        // ...initialise l'inventaire
+        procedure initialiserInventaire;
+
         // retourne l’objet d'une case d’inventaire
         function regarderDansInventaire(numCase: Integer): TypeObjets;
 
@@ -40,6 +43,16 @@ interface
         function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
 
 implementation
+
+    var inventaire: TypeInventaire;
+
+    // ...initialise l'inventaire
+    procedure initialiserInventaire;
+    var i: Integer;
+    begin
+        for i := 0 to 9 do
+            inventaire[i].famille := RIEN;
+    end;
 
     // retourne l’objet d'une case d’inventaire
     function regarderDansInventaire(numCase: Integer): TypeObjets;

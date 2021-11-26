@@ -30,8 +30,11 @@ implementation
             choix := IHM_ListeDeChoix(10, 25, 2);
             if choix = 1 then
                 IHM_EcranAccueil := 1
-            else if IHM_MEnuQuitter then
-                IHM_EcranAccueil := 0;
+            else
+                if IHM_MEnuQuitter then
+                    IHM_EcranAccueil := 0
+                else
+                    choix := 0;
         end;
     end;
 

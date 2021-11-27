@@ -57,19 +57,35 @@ implementation
     // retourne l’objet d'une case d’inventaire
     function regarderDansInventaire(numCase: Integer): TypeObjets;
     begin
-
+        regarderDansInventaire := inventaire[numCase];
     end;
 
     // place un nouvel objet dans l’inventaire
     function mettreDansInventaire(objet: TypeObjets): Boolean;
     begin
-
+        mettreDansInventaire := false;
+        // essayer de mettre les objets avec d'autres objets du même type
+        for i := 0 to 9 do
+            if (inventaire[i].famille = objet.famille)
+            and (inventaire[i].idObjet = objet.idObjet) then begin
+                inventaire[i].quantite += objet.quantite;
+                mettreDansInventaire := true;
+                break;
+            end;
+        // essayer de mettre les objets dans une case vide
+        if not mettreDansInventaire then
+            for i := 0 to 9 do
+                if (inventaire[i].famille = RIEN) then begin
+                    inventaire[i] := objet;
+                    mettreDansInventaire := true;
+                    break;
+                end;
     end;
 
     // récupère un objet depuis l’inventaire
     function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
     begin
-
+        // À FAIRE
     end;
 
 end.

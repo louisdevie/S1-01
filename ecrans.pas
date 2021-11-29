@@ -42,10 +42,10 @@ interface
 
 
 
-// affiche le menu principal
-// renvoie : 0 si l'utilisateur veut quitter
-//           1 si l'utilisateur veut commencer une nouvelle partie
-     function IHM_EcranAccueil: integer;
+    // affiche le menu principal
+    // renvoie : 0 si l'utilisateur veut quitter
+    //           1 si l'utilisateur veut commencer une nouvelle partie
+    function IHM_EcranAccueil: integer;
 
 implementation
     uses AideIHM, Menus;
@@ -74,14 +74,7 @@ implementation
                     choix := 0;
         end;
     end;
-//PERSONNAGE///////////////////////////////////////////////////////////////////
-//TYPE
-    type
-      typePersonnage = record
-                 Nom:string;                    //nom du personnage
-                 Sexe:string;                  //sexe du personnage
-                 Taille:string;                //taile du personange
-      end;
+
 //fonction création de personnage
 function IHM_Personnage:integer;
     var

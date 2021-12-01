@@ -1,4 +1,4 @@
-unit unitPersonnage;
+unit Personnage;
 
 {$mode objfpc}{$H+}
 
@@ -6,11 +6,11 @@ interface
 
 //types
 type
-  typePersonnage = record
-             Nom:string;                    //nom du personnage
-             Sexe:string;                  //sexe du personnage
-             Taille:integer;                //taile du personange
-  end;
+    typePersonnage = record
+        Nom:string;                    //nom du personnage
+        Sexe:string;                  //sexe du personnage
+        Taille:integer;                //taile du personange
+    end;
 
 
 implementation

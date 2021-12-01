@@ -4,8 +4,9 @@
 unit Ecrans;
 
 interface
-// affiche le menu de Création Personnage
+     // affiche le menu de Création Personnage
      function IHM_Personnage:integer;
+
 // affiche le menu EcranVille
 // renvoie : 0 si l'utilisateur veut quitter
 // renvoie : 1 si l'utilisateur veut aller dans sa chambre
@@ -48,7 +49,7 @@ interface
     function IHM_EcranAccueil: integer;
 
 implementation
-    uses AideIHM, Menus;
+    uses AideIHM, Menus, Personnage;
 
     function IHM_EcranAccueil: integer;
     var
@@ -66,7 +67,7 @@ implementation
 
             choix := IHM_ListeDeChoix(10, 25, 2);
             if choix = 1 then
-                IHM_EcranAccueil := IHM_Personnage
+                IHM_EcranAccueil := 1
             else
                 if IHM_MEnuQuitter then
                     IHM_EcranAccueil := 0
@@ -75,39 +76,24 @@ implementation
         end;
     end;
 
-//fonction création de personnage
-function IHM_Personnage:integer;
+    //fonction création de personnage
+    function IHM_Personnage:integer;
     var
-      personnage:typePersonnage;
-      choix: integer ;
+        personnage: typePersonnage;
+        choix: integer ;
     begin
-         choix := 1;
-         while choix = 1 do begin // le jouer choisi de faire une nouvelle partie donc il va pourvoir creer son personnage
-                IHM_Couleur(1, 0);
-                IHM_Effacer;
-                IHM_Couleur(0, 0);
-                IHM_TexteCentre('====Creation de Personnage====', 5);
-                IHM_TexteGauche('Nom : ', 8, 28);
-                readln(personnage.Nom);
-                IHM_TexteGauche('Sexe : ', 10, 28);
-                readln(personnage.Sexe);
-                IHM_TexteGauche('Taille : ', 12, 28);
-                readln(personnage.Taille);
-                IHM_Couleur(2, 0);
-                IHM_TexteGauche('Commencer',22, 28);
-                IHM_TexteGauche('Quitter', 24, 28);
+        IHM_Couleur(1, 0);
+        IHM_Effacer;
+        IHM_Couleur(0, 0);
+        IHM_TexteCentre('====Creation de Personnage====', 5);
+        IHM_TexteGauche('Nom : ', 8, 28);
+        readln(personnage.Nom);
+        IHM_TexteGauche('Sexe : ', 10, 28);
+        readln(personnage.Sexe);
+        IHM_TexteGauche('Taille : ', 12, 28);
+        readln(personnage.Taille);
 
-
-                choix := IHM_ListeDeChoix(22, 25, 2);
-                if choix = 1 then
-                    IHM_Personnage := IHM_EcranVille
-                else
-                    if IHM_MEnuQuitter then
-                        IHM_Personnage := 2
-                    else
-                        choix := 0;
-            end;
-
+        IHM_Personnage := 1;
     end;
 
 //VILLE///////////////////////////////////////////////////////////////////////////

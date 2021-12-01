@@ -15,8 +15,6 @@ interface
             quantite: Integer;
         end;
 
-        TypeInventaire = array [0..9] of TypeObjets;
-
         // Enregistrement contenant les différents équipements
         // ... (représentés par des entiers) du joueur.
         TypeEquipement = record
@@ -49,6 +47,10 @@ interface
         function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
 
 implementation
+
+
+    type
+        TypeInventaire = array [0..9] of TypeObjets;
 
     var _inventaire: TypeInventaire;
 

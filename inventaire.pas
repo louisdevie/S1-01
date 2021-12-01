@@ -17,7 +17,8 @@ interface
 
         TypeInventaire = array [0..9] of TypeObjets;
 
-        // Enregistrement contenant les différents équipements (représentés par des entiers) du joueur.
+        // Enregistrement contenant les différents équipements
+        // ... (représentés par des entiers) du joueur.
         TypeEquipement = record
             casque,
             torse,
@@ -28,18 +29,23 @@ interface
 
         TypeCoffre = array [0..29] of TypeObjets;
 
-        // ...initialise l'inventaire
+        // initialise l'inventaire
         procedure initialiserInventaire;
 
         // retourne l’objet d'une case d’inventaire
         function regarderDansInventaire(numCase: Integer): TypeObjets;
 
         // place un nouvel objet dans l’inventaire
-        // Renvoie un booléen : VRAI si l’objet à bien été placé
-        //                      FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de place par exemple)
+        // Renvoie un booléen :
+        // - VRAI si l’objet à bien été placé
+        // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de
+        //   ... place par exemple)
         function mettreDansInventaire(objet: TypeObjets): Boolean;
 
-        // récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire et le revoie)
+        // récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire
+        // ... et le revoie)
+        // si quantite vaut -1 ou dépasse le nomber d'objets dans la case,
+        // ... tous les objets de la case sont récupérés
         function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
 
 implementation
@@ -85,7 +91,19 @@ implementation
     // récupère un objet depuis l’inventaire
     function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
     begin
-        // À FAIRE
+        // retirer tous les objets d'une case
+        if (quantite = -1) or (quantite >= inventaire[numCase].quantite) then begin
+            sortirDeInventaire           := inventaire[numCase];
+            inventaire[numCase].famille  := RIEN;
+            inventaire[numCase].idObjet  := 0;
+            inventaire[numCase].quantite := 0; 
+        // en retirer une partie
+        end else begin
+            sortirDeInventaire.famille   := inventaire[numCase].famille;
+            sortirDeInventaire.idObjet   := inventaire[numCase].idObjet;
+            sortirDeInventaire.quantite  := quantite;
+            inventaire[numCase].quantite -= quantite;
+        end;
     end;
 
 end.

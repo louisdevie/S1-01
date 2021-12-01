@@ -50,39 +50,40 @@ interface
 
 implementation
 
-    var inventaire: TypeInventaire;
+    var _inventaire: TypeInventaire;
 
     // ...initialise l'inventaire
     procedure initialiserInventaire;
     var i: Integer;
     begin
         for i := 0 to 9 do
-            inventaire[i].famille := RIEN;
+            _inventaire[i].famille := RIEN;
     end;
 
     // retourne l’objet d'une case d’inventaire
     function regarderDansInventaire(numCase: Integer): TypeObjets;
     begin
-        regarderDansInventaire := inventaire[numCase];
+        regarderDansInventaire := _inventaire[numCase];
     end;
 
     // place un nouvel objet dans l’inventaire
     function mettreDansInventaire(objet: TypeObjets): Boolean;
+    var i: Integer;
     begin
         mettreDansInventaire := false;
         // essayer de mettre les objets avec d'autres objets du même type
         for i := 0 to 9 do
-            if (inventaire[i].famille = objet.famille)
-            and (inventaire[i].idObjet = objet.idObjet) then begin
-                inventaire[i].quantite += objet.quantite;
+            if (_inventaire[i].famille = objet.famille)
+            and (_inventaire[i].idObjet = objet.idObjet) then begin
+                _inventaire[i].quantite += objet.quantite;
                 mettreDansInventaire := true;
                 break;
             end;
         // essayer de mettre les objets dans une case vide
         if not mettreDansInventaire then
             for i := 0 to 9 do
-                if (inventaire[i].famille = RIEN) then begin
-                    inventaire[i] := objet;
+                if (_inventaire[i].famille = RIEN) then begin
+                    _inventaire[i] := objet;
                     mettreDansInventaire := true;
                     break;
                 end;
@@ -92,17 +93,17 @@ implementation
     function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
     begin
         // retirer tous les objets d'une case
-        if (quantite = -1) or (quantite >= inventaire[numCase].quantite) then begin
-            sortirDeInventaire           := inventaire[numCase];
-            inventaire[numCase].famille  := RIEN;
-            inventaire[numCase].idObjet  := 0;
-            inventaire[numCase].quantite := 0; 
+        if (quantite = -1) or (quantite >= _inventaire[numCase].quantite) then begin
+            sortirDeInventaire            := _inventaire[numCase];
+            _inventaire[numCase].famille  := RIEN;
+            _inventaire[numCase].idObjet  := 0;
+            _inventaire[numCase].quantite := 0; 
         // en retirer une partie
         end else begin
-            sortirDeInventaire.famille   := inventaire[numCase].famille;
-            sortirDeInventaire.idObjet   := inventaire[numCase].idObjet;
-            sortirDeInventaire.quantite  := quantite;
-            inventaire[numCase].quantite -= quantite;
+            sortirDeInventaire.famille    := _inventaire[numCase].famille;
+            sortirDeInventaire.idObjet    := _inventaire[numCase].idObjet;
+            sortirDeInventaire.quantite   := quantite;
+            _inventaire[numCase].quantite -= quantite;
         end;
     end;
 

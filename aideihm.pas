@@ -170,8 +170,9 @@ implementation
 
     function IHM_DemanderOuiOuNon(question: string): Integer;
     begin
-        IHM_Couleur(2, 1);
+        IHM_Couleur(1, 0);
         cadre(25, 75, 9, 15, double);
+        IHM_Couleur(0, 0);
         IHM_TexteCentre(question, 12);
         saisirBooleen(IHM_DemanderOuiOuNon);
     end;

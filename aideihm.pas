@@ -4,6 +4,7 @@
 unit AideIHM;
 
 interface
+    uses GestionEcran;
 
     // Fixe la taille de la console
     procedure IHM_Initialiser;
@@ -22,6 +23,11 @@ interface
     // si la ligne/colonne n'est pas précisée ou -1, affiche à la position courante du curseur
     procedure IHM_TexteGauche(texte: String; ligne: Integer = -1; colonne: Integer = -1);
 
+    // Dessine un cadre simple
+    procedure IHM_Cadre(gauche, droite, haut, bas: Integer; bordure: TypeBordure);
+    // Dessine un cadre avec un titre
+    procedure IHM_CadreAvecTitre(gauche, droite, haut, bas: Integer; titre: String; bordure: TypeBordure);
+
     // Utilitaire pour liste de choix
     // ligne et colonne sont la position où placer les puces
     function IHM_ListeDeChoix(ligne, colonne, nbChoix: Integer): Integer;
@@ -33,8 +39,9 @@ interface
     const LARGEUR = 100;
           HAUTEUR = 30;
 
+
 implementation       
-    uses GestionEcran, SysUtils;
+    uses SysUtils;
 
     // palette de couleurs                       normal accent. 1  accent. 2  spécial 1   spécial 2
     const PALETTE_TEXTE: array [0..4] of Byte = (WHITE, LIGHTBLUE, LIGHTCYAN, LIGHTGREEN, LIGHTRED);
@@ -45,11 +52,34 @@ implementation
         couleurFondPrecedente: Byte;
 
     // raccourci pour dessinerCadre()
-    procedure cadre(gauche, droite, haut, bas: Integer; bordure: TypeBordure);
+    procedure IHM_Cadre(gauche, droite, haut, bas: Integer; bordure: TypeBordure);
     var c1, c2 : coordonnees;
     begin                  
         c1.x := gauche; c1.y := haut; c2.x := droite; c2.y := bas;
         dessinerCadre(c1, c2, bordure, couleurTextePrecedente, couleurFondPrecedente);
+    end;
+
+    procedure IHM_CadreAvecTitre(gauche, droite, haut, bas: Integer; titre: String; bordure: TypeBordure);
+    var c1, c2 : coordonnees;
+    begin
+        c1.x := gauche;
+        c1.y := haut+1;
+        c2.x := droite;
+        c2.y := bas;
+        dessinerCadre(c1, c2, bordure, couleurTextePrecedente, couleurFondPrecedente);
+
+        c1.x := ((LARGEUR - length(titre)) div 2) - 2;
+        c1.y := haut;
+        c2.x := ((LARGEUR + length(titre)) div 2) + 1;
+        c2.y := haut+2;     
+        dessinerCadre(c1, c2, bordure, couleurTextePrecedente, couleurFondPrecedente);
+
+        deplacerCurseurXY(c1.x, haut+1);
+        if bordure = SIMPLE then begin
+            write(#180#32); write(titre); write(#32#195);
+        end else begin
+            write(#185#32); write(titre); write(#32#204);
+        end;
     end;
 
     procedure IHM_Initialiser;
@@ -104,7 +134,7 @@ implementation
         succes: Boolean;
     begin
         IHM_Couleur(0, 0);
-        cadre(0, 99, 27, 29, SIMPLE);
+        IHM_Cadre(0, 99, 27, 29, SIMPLE);
         pos.x := 3; pos.y := 28;
         IHM_Couleur(2, 0);
         ecrireEnPosition(pos, '> ');
@@ -137,7 +167,7 @@ implementation
         saisie: String;
     begin
         IHM_Couleur(0, 0);
-        cadre(0, 99, 27, 29, SIMPLE);
+        IHM_Cadre(0, 99, 27, 29, SIMPLE);
         pos.x := 3; pos.y := 28;
         IHM_Couleur(2, 0);
         ecrireEnPosition(pos, 'O/n > ');
@@ -171,9 +201,9 @@ implementation
     function IHM_DemanderOuiOuNon(question: string): Integer;
     begin
         IHM_Couleur(1, 0);
-        cadre(25, 75, 9, 15, double);
+        IHM_CadreAvecTitre(25, 75, 9, 16, 'Confirmation', double);
         IHM_Couleur(0, 0);
-        IHM_TexteCentre(question, 12);
+        IHM_TexteCentre(question, 13);
         saisirBooleen(IHM_DemanderOuiOuNon);
     end;
 

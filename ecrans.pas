@@ -41,27 +41,26 @@ interface
 // renvoie : 1 si l'utilisateur veut attaquer le monstre
      function IHM_EcranCombattreMonstre:integer;
 
-
-
     // affiche le menu principal
     // renvoie : 0 si l'utilisateur veut quitter
     //           1 si l'utilisateur veut commencer une nouvelle partie
     function IHM_EcranAccueil: integer;
 
 implementation
-    uses AideIHM, Menus, Personnage;
+    uses GestionEcran, AideIHM, Menus, Personnage;
 
     function IHM_EcranAccueil: integer;
     var
         choix: Integer;
     begin
         choix := 0;
-        while choix = 0 do begin // demander à nouveau si la saisie de l'utilisateur n'est pas valide
+        while choix = 0 do begin
             IHM_Couleur(1, 0);
             IHM_Effacer;
-            IHM_TexteCentre('=== Monster Hunter : New world ===', 5);
+            IHM_TexteCentre('=== Monster Hunter : New World ===', 5);
             IHM_Couleur(0, 0);
             IHM_TexteGauche('Nouvelle Partie', 10, 28);
+            IHM_Couleur(1, 0);
             IHM_TexteGauche('Quitter', 12, 28);
             IHM_Couleur(2, 0);
 
@@ -69,7 +68,7 @@ implementation
             if choix = 1 then
                 IHM_EcranAccueil := 1
             else
-                if IHM_MEnuQuitter then
+                if IHM_MenuQuitter then
                     IHM_EcranAccueil := 0
                 else
                     choix := 0;
@@ -81,7 +80,7 @@ implementation
     var
         personnage: typePersonnage;
         choix: integer ;
-    begin
+    begin  {
         IHM_Couleur(1, 0);
         IHM_Effacer;
         IHM_Couleur(0, 0);
@@ -92,48 +91,44 @@ implementation
         readln(personnage.Sexe);
         IHM_TexteGauche('Taille : ', 12, 28);
         readln(personnage.Taille);
-
+                             }
         IHM_Personnage := 1;
     end;
 
-//VILLE///////////////////////////////////////////////////////////////////////////
-function IHM_EcranVille: integer;
+
+    function IHM_EcranVille: integer;
     var
         choix: Integer;
     begin
         choix := 0;
-        while choix = 0 do begin // demander à nouveau si la saisie de l'utilisateur n'est pas valide
-            IHM_Couleur(1, 0);
-            IHM_Effacer;
-            IHM_TexteCentre('=== BIENVENUE EN VILLE DE MOSTER HUNTER ===', 5);
+        while choix = 0 do begin
             IHM_Couleur(0, 0);
-            IHM_TexteGauche('Choisissez le numero qui represente l''endroit que vous voulez aller', 8, 16);
-            IHM_TexteGauche('Chambre', 10, 28);
-            IHM_TexteGauche('Forge', 12, 28);
-            IHM_TexteGauche('Marchand', 14, 28);
-            IHM_TexteGauche('Cantine', 16, 28);
-            IHM_TexteGauche('Combattre Monstre', 18, 28);
+            IHM_Effacer;
+            IHM_CadreAvecTitre(0, 99, 0, 26, 'VILLE', SIMPLE);
+            IHM_Couleur(1, 0);
+            IHM_TexteGauche('Voir l''inventaire', 8, 28);      
+            IHM_Couleur(0, 0);
+            IHM_TexteGauche('Aller '#224' la chambre', 10, 28);
+            IHM_TexteGauche('Aller '#224' la forge', 12, 28);
+            IHM_TexteGauche('Aller au Magasin', 14, 28);
+            IHM_TexteGauche('Aller '#224' la Cantine', 16, 28);
+            IHM_TexteGauche('Combattre un monstre', 18, 28);    
+            IHM_Couleur(1, 0);
             IHM_TexteGauche('Quitter', 20, 28);
             IHM_Couleur(2, 0);
 
-            choix := IHM_ListeDeChoix(10, 25, 6);
-            if choix = 1  then
-                IHM_EcranVille := IHM_EcranChambre;
-            if choix = 2  then
-                IHM_EcranVille := IHM_EcranForge;
-            if choix = 3  then
-                IHM_EcranVille := IHM_EcranMarchand;
-            if choix = 4  then
-                IHM_EcranVille := IHM_EcranCantine;
-            if choix = 5  then
-                IHM_EcranVille := IHM_EcranCombattreMonstre
-
-
-            else
-                if IHM_MEnuQuitter then
-                    IHM_EcranVille := 0
-                else
+            choix := IHM_ListeDeChoix(8, 25, 7);
+            case choix of
+                1:
                     choix := 0;
+                2..6:
+                    IHM_EcranVille := choix-1;
+                7:
+                    if IHM_MEnuQuitter then
+                        IHM_EcranVille := 0
+                    else
+                        choix := 0;
+            end;
         end;
     end;
 //MARCHAND////////////////////////////////////////////////////////////////////////////
@@ -194,32 +189,35 @@ function IHM_EcranCantine: integer;
 
         end;
     end;
-//CHAMBRE////////////////////////////////////////////////////////////////////////////////
-function IHM_EcranChambre: integer;
+
+    function IHM_EcranChambre: integer;
     var
         choix: Integer;
     begin
         choix := 0;
-        while choix = 0 do begin // demander à nouveau si la saisie de l'utilisateur n'est pas valide
-            IHM_Couleur(1, 0);
-            IHM_Effacer;
-            IHM_TexteCentre('=== CHAMBRE ===', 5);
+        while choix = 0 do begin
             IHM_Couleur(0, 0);
-            IHM_TexteGauche('Reposer', 10, 28);
-            IHM_TexteGauche('Equipement', 12, 28);
-            IHM_TexteGauche('Aller En Ville', 14, 28);
+            IHM_Effacer;
+            IHM_CadreAvecTitre(0, 99, 0, 26, 'CHAMBRE', SIMPLE);
+            IHM_Couleur(1, 0);
+            IHM_TexteGauche('Se reposer', 10, 28);
+            IHM_TexteGauche('D'#233'poser des objets', 12, 28);  
+            IHM_TexteGauche('Prendre des objets', 14, 28);
+            IHM_Couleur(0, 0);
+            IHM_TexteGauche('Retourner en ville', 16, 28);
             IHM_Couleur(2, 0);
 
-            choix := IHM_ListeDeChoix(10, 25, 3);
-            if choix = 1 then
-                IHM_EcranChambre := 0;
-            if choix = 2 then
-                IHM_EcranChambre :=0;
-            if choix = 3 then
-                IHM_EcranChambre := IHM_EcranVille;
+            choix := IHM_ListeDeChoix(10, 25, 4);
+            case choix of
+                1..3:
+                    choix := 0;
+                4:
+                    IHM_EcranChambre := 1;
 
+            end;
         end;
     end;
+
 //CHAMBRE////////////////////////////////////////////////////////////////////////////////
 function IHM_EcranForge: integer;
     var

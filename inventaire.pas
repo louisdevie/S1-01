@@ -36,23 +36,20 @@ interface
         // place un nouvel objet dans l’inventaire
         // Renvoie un booléen :
         // - VRAI si l’objet à bien été placé
-        // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de
-        //   ... place par exemple)
+        // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de place)
         function mettreDansInventaire(objet: TypeObjets): Boolean;
 
         // récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire
         // ... et le revoie)
-        // si quantite vaut -1 ou dépasse le nomber d'objets dans la case,
+        // si quantite vaut -1 ou dépasse le nombre d'objets dans la case,
         // ... tous les objets de la case sont récupérés
         function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
 
 implementation
 
 
-    type
-        TypeInventaire = array [0..9] of TypeObjets;
-
-    var _inventaire: TypeInventaire;
+    // singleton
+    var _inventaire: array [0..9] of TypeObjets;
 
     // ...initialise l'inventaire
     procedure initialiserInventaire;

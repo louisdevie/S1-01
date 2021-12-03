@@ -1,3 +1,6 @@
+{
+    Gestion de l'inventaire et du coffre de la chambre
+}
 unit Inventaire;
 
 interface
@@ -14,6 +17,8 @@ interface
             idObjet,
             quantite: Integer;
         end;
+
+        TypeInventaire = array [0..8] of TypeObjets;
 
         // Enregistrement contenant les différents équipements
         // ... (représentés par des entiers) du joueur.
@@ -36,26 +41,25 @@ interface
         // place un nouvel objet dans l’inventaire
         // Renvoie un booléen :
         // - VRAI si l’objet à bien été placé
-        // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de place)
+        // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de
+        //   ... place par exemple)
         function mettreDansInventaire(objet: TypeObjets): Boolean;
 
         // récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire
         // ... et le revoie)
-        // si quantite vaut -1 ou dépasse le nombre d'objets dans la case,
+        // si quantite vaut -1 ou dépasse le nomber d'objets dans la case,
         // ... tous les objets de la case sont récupérés
         function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
 
 implementation
 
-
-    // singleton
-    var _inventaire: array [0..9] of TypeObjets;
+    var _inventaire: TypeInventaire;
 
     // ...initialise l'inventaire
     procedure initialiserInventaire;
     var i: Integer;
     begin
-        for i := 0 to 9 do
+        for i := 0 to 8 do
             _inventaire[i].famille := RIEN;
     end;
 
@@ -71,7 +75,7 @@ implementation
     begin
         mettreDansInventaire := false;
         // essayer de mettre les objets avec d'autres objets du même type
-        for i := 0 to 9 do
+        for i := 0 to 8 do
             if (_inventaire[i].famille = objet.famille)
             and (_inventaire[i].idObjet = objet.idObjet) then begin
                 _inventaire[i].quantite += objet.quantite;
@@ -80,7 +84,7 @@ implementation
             end;
         // essayer de mettre les objets dans une case vide
         if not mettreDansInventaire then
-            for i := 0 to 9 do
+            for i := 0 to 8 do
                 if (_inventaire[i].famille = RIEN) then begin
                     _inventaire[i] := objet;
                     mettreDansInventaire := true;

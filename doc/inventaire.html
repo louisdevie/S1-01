@@ -1,0 +1,70 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/Core/Traditional" type="text/css">
+<h1>SAÉ S1.01 — Documentation technique</h1>
+
+<h2>Unité <code>Inventaire</code></h2>
+
+<a href="index.html">Retour</a>
+<hr>
+
+Cette unité gère l'inventaire, les équipements du joueur et le coffre de la chambre
+
+<h3>Entités publiques</h3>
+
+<h4>Énumération <code>FamilleObjets</code></h4>
+Différents types d'objets possibles.<br>
+Valeurs :
+<ul>
+<li>RIEN</li>
+<li>POTION</li>
+<li>BOMBE</li>
+<li>CASQUE</li>
+<li>TORSE</li>
+<li>GANTS</li>
+<li>JAMBIERES</li>
+<li>BOTTES</li>
+<li>PARTIEMONSTRE</li>
+</ul>
+
+<h4>Enregistrement <code>TypeObjets</code></h4>
+Un ou plusieurs objets identiques.<br>
+Champs :
+<ul>
+	<li>famille <em>(FamilleObjets)</em></li>
+	<li>idObjet <em>(Integer)</em></li>
+	<li>quantite <em>(Integer)</em></li>
+</ul>
+
+<h4>Procédure <code>initialiserInventaire</code></h4>
+Initialise l'inventaire avec des cases vides (famille <code>RIEN</code>).<br>
+Aucun paramètre.
+
+<h4>Fonction <code>regarderDansInventaire</code></h4>
+Indique le contenu d'une case de l'inventaire.<br>
+Paramètres :
+<ul>
+	<li>numCase <em>(Integer)</em> : un nombre de 0 à 8, le numéro de la case</li>
+</ul>
+Renvoie : un <em>TypeObjets</em>, le contenu de la case
+
+<h4>Fonction <code>mettreDansInventaire</code></h4>
+Place un nouvel objet dans l’inventaire.<br>
+Paramètres :
+<ul>
+	<li>objet <em>(TypeObjets)</em> : le(s) objet(s) à mettre dans l'inventaire</li>
+</ul>
+Renvoie : un <em>booléen</em>, VRAI si l’objet à bien été placé ou FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de place)
+
+<h4>Fonction <code>sortirDeInventaire</code></h4>
+Récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire et le revoie)
+Paramètres:
+<ul>
+	<li>numCase <em>Integer</em> : le numéro de la case</li>
+	<li>quantite <em>(Integer)</em> : le nombre d'objets à retirer. Si quantite vaut -1 ou dépasse le nombre d'objets dans la case, tous les objets de la case seront récupérés</li>
+</ul>
+Renvoie : un <em>TypeObjets</em>, les objets récupérés
+
+<h3>Entités privées</h3>
+
+<hr>
+Groupe D1 — DEVIE Louis, PHAM Tan Sang & JEUDY Stéfan

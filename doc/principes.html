@@ -1,0 +1,36 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/Core/Traditional" type="text/css">
+<h1>SAÉ S1.01 — Documentation technique</h1>
+
+<h2>Fonctionnement général</h2>
+
+<a href="index.html">Retour</a>
+<hr>
+
+<h3>Navigation entre les différentes parties du jeu</h3>
+
+	<p>
+		Le jeu est composé de différents <em>écrans</em>.
+		Chaque écran est une fonction bloquante qui termine quand l'utilisateur a choisi de changer d'écran ou de quitter le jeu.
+		Ces fonctions ne prennent aucun paramètre et renvoient un nombre indiquant l'écran sur lequel basculer.
+		La structure de base du jeu est donc un automate dont les états sont les différents écrans.
+	</p>
+
+<h3>L'inventaire et les objets</h3>
+
+<p>
+	Les objets sont distingués par une famille et un identifiant unique au sein de cette famille.
+	Plusieurs objets identiques peuvent être regroupés.
+	Les équipements (armure et armes) et les parties récupérées su les monstres sont aussi des objets.
+</p>
+
+<p>
+	L'inventaire est constitué de <em>9</em> cases pouvant acceuillir n'importe quel objet. Les équipemets équipés n'en font pas partie.
+</p>
+
+<p>
+	En addition, le joueur possède un coffre dans sa chambre pouvant accueillir plus d'objets, mais accessible uniquement quand le joueur se trouve dans sa chambre.
+</p>
+
+<hr>
+Groupe D1 — DEVIE Louis, PHAM Tan Sang & JEUDY Stéfan

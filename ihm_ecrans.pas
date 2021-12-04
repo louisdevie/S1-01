@@ -22,14 +22,27 @@ function IHM_EcranVille: integer;
 // renvoie : 3 si l'utilisateur veut aller en ville
 function IHM_EcranMarchand : integer;
 
-// affiche le menu EcranMarchand
+// affiche le menu IHM_EcranAcheter
 // renvoie : 1 si l'utilisateur veut acheter le casque
 // renvoie : 2 si l'utilisateur veut acheter le torse
 // renvoie : 3 si l'utilisateur veut acheter les jambières
 // renvoie : 4 si l'utilisateur veut acheter les bottes
 // renvoie : 5 si l'utilisateur veut acheter les gants
-// renvoie : 6 si l'utilisateur veut aller en ville
+// renvoie : 6 si l'utilisateur veut acheter les gants
+// renvoie : 7 si l'utilisateur veut acheter les gants
+// renvoie : 8 si l'utilisateur veut aller en ville
 function IHM_EcranAcheter: integer;
+
+//affiche le menu IHM_EcranVendre
+// renvoie : 1 si l'utilisateur veut vendre le casque
+// renvoie : 2 si l'utilisateur veut vendre le torse
+// renvoie : 3 si l'utilisateur veut vendre les jambières
+// renvoie : 4 si l'utilisateur veut vendre les bottes
+// renvoie : 5 si l'utilisateur veut vendre les gants
+// renvoie : 6 si l'utilisateur veut vendre les gants
+// renvoie : 7 si l'utilisateur veut vendre les gants
+// renvoie : 8 si l'utilisateur veut aller en ville
+function IHM_EcranVendre: integer;
 
 // affiche le menu EcranCantine
 // renvoie : 1 si l'utilisateur veut prendre un repas
@@ -165,12 +178,12 @@ function IHM_EcranMarchand: integer;
             if choix = 1 then
                 IHM_EcranMarchand := IHM_EcranAcheter;
 	    if choix = 2 then
-                IHM_EcranMarchand := 0;
+                IHM_EcranMarchand := IHM_EcranVendre;
 	    if choix = 3 then
                 IHM_EcranMarchand := IHM_EcranVille;
         end;
     end;
-//MENU ACHETER ////////////////////////////////////////////////////////////////////////////
+//IHM ACHETER ////////////////////////////////////////////////////////////////////////////
 //Qui affiche les objets qu'on peut acheter
 function IHM_EcranAcheter: integer;
     var
@@ -187,10 +200,12 @@ function IHM_EcranAcheter: integer;
             IHM_TexteGauche('Jambieres', 14, 28);
             IHM_TexteGauche('Bottes', 16, 28);
             IHM_TexteGauche('Gants', 18, 28);
-            IHM_TexteGauche('Retourne en Arriere', 20, 28);
+            IHM_TexteGauche('Bombe', 20, 28);
+            IHM_TexteGauche('Potion', 22, 28);
+            IHM_TexteGauche('Retourne en Arriere', 24, 28);
             IHM_Couleur(2, 0);
 
-            choix := IHM_ListeDeChoix(10, 25, 6);
+            choix := IHM_ListeDeChoix(10, 25, 8);
             if choix = 1 then
                 IHM_EcranAcheter := 0;
 	    if choix = 2 then
@@ -202,6 +217,10 @@ function IHM_EcranAcheter: integer;
 	    if choix = 5 then
                 IHM_EcranAcheter := 0;
             if choix = 6 then
+                IHM_EcranAcheter := 0;
+            if choix = 7 then
+                IHM_EcranAcheter := 0;
+            if choix = 8 then
                 IHM_EcranAcheter := IHM_EcranMarchand;
 
         end;
@@ -224,10 +243,12 @@ function IHM_EcranVendre: integer;
             IHM_TexteGauche('Jambieres', 14, 28);
             IHM_TexteGauche('Bottes', 16, 28);
             IHM_TexteGauche('Gants', 18, 28);
-            IHM_TexteGauche('Retourne en Arriere', 20, 28);
+            IHM_TexteGauche('Bombe', 20, 28);
+            IHM_TexteGauche('Potion', 22, 28);
+            IHM_TexteGauche('Retourne en Arriere', 24, 28);
             IHM_Couleur(2, 0);
 
-            choix := IHM_ListeDeChoix(10, 25, 6);
+            choix := IHM_ListeDeChoix(10, 25, 8);
             if choix = 1 then
                 IHM_EcranVendre := 0;
 	    if choix = 2 then
@@ -239,10 +260,15 @@ function IHM_EcranVendre: integer;
 	    if choix = 5 then
                 IHM_EcranVendre := 0;
             if choix = 6 then
+                IHM_EcranVendre := 0;
+            if choix = 7 then
+                IHM_EcranVendre := 0;
+            if choix = 8 then
                 IHM_EcranVendre := IHM_EcranMarchand;
 
         end;
     end;
+
 
 //CANTINE////////////////////////////////////////////////////////////////////////////////
 function IHM_EcranCantine: integer;

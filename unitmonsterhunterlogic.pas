@@ -6,13 +6,12 @@ uses AideIHM,Menus,IHM_Ecrans,unitTypes,Ecrans,Inventaire;
 
 /////////////////DES FONCTIONS ET PROCEDURES//////////////////////////
 
-///////CHAMBRE l'utilisatuer peut gerer son inventaire ou reposer son personnage///////
 //quand le joueur va se reposer sa vie va remplir automatiquement
 procedure laChambre();
 //procedure initialisation des bombes
-procedure InitialisationBombe(useBombe : typeBombe);
+procedure InitialisationBombe(bombe : typeBombe);
 //Initialisation Potion
-procedure InitialisationPotion(usePotion : typePotion);
+procedure InitialisationPotion(potion : typePotion);
 //Initialisation Armure
 function InitialisationArmure(armure : tabArmure) : tabArmure;
 //Initialisation Arme
@@ -21,8 +20,8 @@ function InitialisationArme(arme : tabArme ):tabArme;
 procedure InitialisationPersonnage(personnage : typePersonnage);
 //Initialisation Cantine
 procedure InitialisationCantine(plat : typePlat);
-//procedure typePrix qui donne des prix aux objects
-procedure InitialisationPrix(prix : TypeObjets);
+//procedure Initialisation Prix qui donne des prix aux objects
+procedure InitialisationPrix(prix : typePrixObjet);
 //procedure typePrix qui donner des prix aux objects
 procedure typePrix(prix : TypeObjets);
 //procedure le joueur n'a pas assez d'argent
@@ -42,7 +41,8 @@ procedure forge();
 
 implementation
 
-//InitialisationPersonnage le joueur va pouvoir creer son personnage
+//Initialisation Personnage
+//Quand le joueur a créé son personnage il va avoir toutes ces caractéristiques pour son personnage
 procedure InitialisationPersonnage(personnage : typePersonnage);
 begin
     personnage.argent    := 0;
@@ -50,8 +50,9 @@ begin
     personnage.vieMax    := 100;
     personnage.attaque   := 10;
     personnage.armure    := 0;
-    personnage.armureMax :=50;
-    personnage.ressource.nom := 'Bois';
+    personnage.armureMax := 50;
+    personnage.ressource.nom      := 'Bois';
+    personnage.ressource.quantite :=  0;
 end;
 
 {
@@ -70,15 +71,19 @@ function IHM_ArgentPersonnage: integer;
     end;
 }
 
-//InitialisationMonstre on cree un monstre
-procedure InitialisationMonstre(var monstre : typeMonstre);
+//Initialisation Monstre on cree un monstre
+procedure InitialisationMonstre(monstre : typeMonstre);
 begin
   monstre.nom        :='TOTO';
-  monstre.vie        := random(100)+50;
-  monstre.attaque    := random(10)+5;
-  monstre.armure     := random(5)+5;
-  monstre.battu      := true;
-  monstre.dropArgent := random(10)+10;
+  monstre.vie        := 100;
+  monstre.attaque    := 10;
+  monstre.armure     := 5;
+  monstre.battu      := TRUE;
+  monstre.dropArgent := 20;
+  monstre.dropRessoucre.nom:='Ressource pour fabriquer arme et armure';
+  monstre.dropRessoucre.quantite:=2;
+
+
 { JE VOUSLAIS FAIRE PLUSIEURS MONSTRES MAIS ON N'A PAS BEAUCOUP TEMPS TU PEUX SUPPRIMER CETTE PARTIE EN COMMENTAIRE
   monstre[2].nom        :='BOB';
   monstre[2].vie        := random(100)+200;
@@ -97,62 +102,77 @@ begin
 end;
 
 //Initialisation Arme
-function InitialisationArme(arme : tabArme ):tabArme;
+procedure InitialisationArme(arme : typeArme );
 begin
-  arme[1].nom   :='Epee en Bois';
-  arme[1].degats:=10;
-
+  arme.nom   :='Epee';
+  arme.degats:=10;
+{
   arme[2].nom   :='Epee en Metal';
   arme[2].degats :=20;
 
   arme[3].nom   :='Epee en Diament';
   arme[3].degats :=30;
   InitialisationArme := arme;
+}
 end;
 
-
-
 //Initialisation Armure
-function InitialisationArmure(armure : tabArmure) : tabArmure;
+procedure InitialisationArmure(armure : typeArmure);
 begin
-  armure[1].nom     :='Armure en Bois';
-  armure[1].defense :=10;
-
+  armure.nom     :='Armure';
+  armure.defense :=10;
+{
   armure[2].nom     :='Armure en Metal';
   armure[2].defense :=20;
 
   armure[3].nom     :='Armure en Diament';
   armure[3].defense :=30;
   InitialisationArmure:=armure;
-
+}
 end;
 
 //Initialisation Cantine
 procedure InitialisationCantine(plat : typePlat);
-var
-    personnage : typePersonnage;
 begin
-  plat.bonus.vie    := personnage.vie     + 50;
-  plat.bonus.degat  := personnage.attaque + 10;
-  plat.bonus.armure := personnage.armure  + 10;
+  plat.bonus.bonusVie    := 50;
+  plat.bonus.bonusDegat  := 10;
+  plat.bonus.bonusArmure := 10;
 end;
 
 //Initialisation Potion
-procedure InitialisationPotion(usePotion : typePotion);
-var
-    personnage : typePersonnage;
+procedure InitialisationPotion(potion : typePotion);
 begin
-  usePotion.vie     := (personnage.vie + 20);
-  usePotion.degat   := (personnage.attaque + 5 );
-  usePotion.armure  := (personnage.armure  + 10);
+  potion.potionVie     := 20;
+  potion.potionDegat   :=  5;
+  potion.potionArmure  := 10;
 end;
 
-//procedure initialisation des bombes
-procedure InitialisationBombe(useBombe : typeBombe);
+//Initialisation Bonus
+procedure InitialisationBonus(bonus :typeBonus);
+begin
+  bonus.bonusVie    := 50;
+  bonus.bonusDegat  := 20;
+  bonus.bonusArmure := 10;
+end;
+
+//Initialisation Bombe
+procedure InitialisationBombe(bombe : typeBombe);
 var
     personnage : typePersonnage;
 begin
-  useBombe.degat   := (personnage.attaque + 20 );
+  bombe.degat   := (personnage.attaque + 20 );
+end;
+
+//procedure Initialisation Prix qui donne des prix aux objects
+procedure InitialisationPrix(prix : typePrixObjet);
+begin
+  prix.CASQUE    := 200;
+  prix.TORSE     := 100;
+  prix.GANTS     := 90;
+  prix.JAMBIERES := 120;
+  prix.BOTTES    := 140;
+  prix.BOMBE     := 150;
+  prix.POTION    := 300;
 end;
 
 ///////CHAMBRE l'utilisatuer peut gerer son inventaire ou reposer son personnage///////
@@ -215,6 +235,8 @@ end;
 //la CANTINE permet d'achter des repas et les utiliser pour avoir des bonus
 procedure cantine();
 var
+    personnage : typePersonnage;
+    plat  : typePlat;
     choix : Integer;
 begin
     //Appeller de afficher l'ecran  IHM_EcranCantine
@@ -224,8 +246,10 @@ begin
           if choix = 1 then
           begin
              //On appelle cette procedure pour ajouter du bonus au personnage (+vie,+degat,+armure)
-             InitialisationCantine();
-             writeln:('Les bonus de vie de degat d''amure sont bien ajouté à votre personnage');
+             personnage.vie := personnage.vie + plat.bonus.bonusVie;
+             personnage.attaque := personnage.attaque + plat.bonus.bonusDegat;
+             personnage.armure := personnage.armure + plat.bonus.bonusArmure;
+             writeln('Les bonus de vie de degat d''amure sont bien ajouté à votre personnage');
              readln;
           end;
           //Retourner en Ville si le choix choisit par utilisateur est 2
@@ -272,17 +296,17 @@ begin
 
     if choix = 3 then //si choix sur ecran IHM_EcranCombattreMonstre = 3 le joueur veut utiliser la potion pour augementer la vie
     begin
-         personnage.vie := ((personnage.vie) + (usePotion.vie));
+         personnage.vie := ((personnage.vie) + (usePotion.potionVie));
     end;
 
     if choix = 4 then //si choix sur ecran IHM_EcranCombattreMonstre = 4 le joueur veut utiliser la potion pour augementer de degat
     begin
-         personnage.attaque := ((personnage.attaque) + (usePotion.degat));
+         personnage.attaque := ((personnage.attaque) + (usePotion.potionDegat));
     end;
 
     if choix = 5 then //si choix sur ecran IHM_EcranCombattreMonstre = 5 le joueur veut utiliser la potion pour augementer l'armure
     begin
-         personnage.armure := ((personnage.armure) + (usePotion.armure));
+         personnage.armure := ((personnage.armure) + (usePotion.potionArmure));
     end;
 
     if choix = 6 then //si choix sur ecran IHM_EcranCombattreMonstre = 6 le joueur veut quitter le champ de combat
@@ -339,65 +363,30 @@ bebin
 end;
 }
 
-//procedure typePrix qui donne des prix aux objects
-procedure InitialisationPrix(prix : TypeObjets);
-begin
-  prix.famille.BOMBE     := 200;
-  prix.famille.CASQUE    := 100;
-  prix.famille.TORSE     := 90;
-  prix.famille.GANTS     := 80;
-  prix.famille.JAMBIERES := 140;
-  prix.famille.BOTTES    := 120;
-  prix.famille.POTION    := 300;
-end;
-
-
-//fonction confirmation achat permet de confirmer l'achat de l'utilisatuer
-function achatObjet(prix : integer) : Boolean;
-var
-    achat : Boolean;
-    personnage : typePersonnage;
-begin
-  if personnage.argent >= prix then  // si l'argent est superieur que le prix de l'objet
-    begin
-      personnage.argent := personnage.argent - prix;
-      achat := TRUE;
-    end;
-      if personnage.argent < prix then  //si l'argent est inferieur que le prix de l'objet
-      NoArgent()                        //appel la procedure noArgent pour dire à l'utilisateur qu'il n'a pas assez d'argent
-    else                                //si non
-      achat      := FALSE;              //achat est faux
-      achatObjet := achat;
-end;
-
-//procedure le joueur n'a pas assez d'argent
-procedure NoArgent(prix : TypeObjets);
+//fonction NoArgent qui retounre oui ou non si le joueur n'a pas assez d'argent
+procedure NoArgent(prix : TypePrixObjet; noMoney: boolean);
 var
     personnage : typePersonnage;
 
 begin
-  //appller la fonction qui defini les prix du marché
-  InitialisationPrix();
     //Si l'argent de joueur est inferieur à l'argent de tous ces objets
     if
-        (personnage.argent < prix.famille.BOMBE)      AND
-        (personnage.argent < prix.famille.CASQUE)     AND
-        (personnage.argent < prix.famille.TORSE)      AND
-        (personnage.argent < prix.famille.GANTS)      AND
-        (personnage.argent < prix.famille.JAMBIERES)  AND
-        (personnage.argent < prix.famille.BOTTES)     AND
-        (personnage.argent < prix.famille.POTION)
+        (personnage.argent < prix.BOMBE)      AND
+        (personnage.argent < prix.CASQUE)     AND
+        (personnage.argent < prix.TORSE)      AND
+        (personnage.argent < prix.GANTS)      AND
+        (personnage.argent < prix.JAMBIERES)  AND
+        (personnage.argent < prix.BOTTES)     AND
+        (personnage.argent < prix.POTION)
     then
-    //On lui dit qu'il manque de l'argent
-     writeln('Il vous manque de l''argent');
+    //retoune vrai
+    noMoney := TRUE
+    //si non retourne faux
+    else
+    noMoney := FALSE;
 end;
 
-//fonction vendre objet permettre au joueur de vendre ses objets innécessaires
-function vendreObject(var argent,somme : Integer) : Integer;
-begin
-  vendreObject := personnage.argent >= somme;
-  //pas finit
-end;
+
 
 
 

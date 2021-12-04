@@ -9,7 +9,7 @@ interface
         FamilleObjets = (
             RIEN,
             POTION, BOMBE,
-            CASQUE, TORSE, GANTS, JAMBIERES, BOTTES,
+            ARME, CASQUE, TORSE, GANTS, JAMBIERES, BOTTES,
             PARTIEMONSTRE);
 
         // Enregistrement qui représente un ou plusieurs objets identiques
@@ -19,28 +19,54 @@ interface
             quantite: Integer;
         end;
 
-        // initialise l'inventaire
-        procedure initialiserInventaire;
+    // initialise l'inventaire
+    procedure initialiserInventaire;
 
-        // retourne l’objet d'une case d’inventaire
-        function regarderDansInventaire(numCase: Integer): TypeObjets;
+    // retourne l’objet d'une case d’inventaire
+    function regarderDansInventaire(numCase: Integer): TypeObjets;
 
-        // place un nouvel objet dans l’inventaire
-        // Renvoie un booléen :
-        // - VRAI si l’objet à bien été placé
-        // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de
-        //   ... place par exemple)
-        function mettreDansInventaire(objet: TypeObjets): Boolean;
+    // place un nouvel objet dans l’inventaire
+    // Renvoie un booléen :
+    // - VRAI si l’objet à bien été placé
+    // - FAUX si l’objet n’a pas pu être placé dans l’inventaire (plus de
+    //   ... place par exemple)
+    function mettreDansInventaire(objet: TypeObjets): Boolean;
 
-        // récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire
-        // ... et le revoie)
-        // si quantite vaut -1 ou dépasse le nomber d'objets dans la case,
-        // ... tous les objets de la case sont récupérés
-        function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
+    // récupère un objet depuis l’inventaire (enlève l’objet de l’inventaire
+    // ... et le revoie)
+    // si quantite vaut -1 ou dépasse le nomber d'objets dans la case,
+    // ... tous les objets de la case sont récupérés
+    function sortirDeInventaire(numCase, quantite: Integer): TypeObjets;
+
+    {
+    procedure initialiserEquipement;
+    
+    function equipement(partie: FamilleObjets): Integer;
+    
+    procedure equiper(partie: FamilleObjets; idEquipement : Integer);
+    
+    procedure initialiserCoffre;
+    
+    function transférerDansCoffre(numCaseInventaire: Integer): Boolean;
+    
+    function transférerDepuisCoffre(numCaseCoffre: Integer): Boolean;
+    }
 
 implementation
 
-    var _inventaire: array [0..8] of TypeObjets;
+    var
+        _inventaire: array [0..8] of TypeObjets;
+
+        {
+        _armeEquipee,
+        _casqueEquipe,
+        _torseEquipe,
+        _gantsEquipes,
+        _jambieresEquipees,
+        _bottesEquipees : Integer;
+        
+        _coffre : array [0..29] of TypeObjets;
+        }
 
     // ...initialise l'inventaire
     procedure initialiserInventaire;

@@ -17,8 +17,6 @@ procedure InitialisationPotion(usePotion : typePotion);
 function InitialisationArmure(armure : tabArmure) : tabArmure;
 //Initialisation Arme
 function InitialisationArme(arme : tabArme ):tabArme;
-//InitialisationPersonnage le joueur va pouvoir creer son personnage
-procedure InitialisationPersonnage(personnage : typePersonnage);
 //Initialisation Cantine
 procedure InitialisationCantine(plat : typePlat);
 //procedure typePrix qui donne des prix aux objects
@@ -42,17 +40,7 @@ procedure forge();
 
 implementation
 
-//InitialisationPersonnage le joueur va pouvoir creer son personnage
-procedure InitialisationPersonnage(personnage : typePersonnage);
-begin
-    personnage.argent    := 0;
-    personnage.vie       := 100;
-    personnage.vieMax    := 100;
-    personnage.attaque   := 10;
-    personnage.armure    := 0;
-    personnage.armureMax :=50;
-    personnage.ressource.nom := 'Bois';
-end;
+
 
 {
 //function qui affiche la vie personnage

@@ -1,5 +1,5 @@
 {
- ... les menus
+    Boites des dialogues
 }
 unit Menus;
 

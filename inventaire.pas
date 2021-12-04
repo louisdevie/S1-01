@@ -1,5 +1,5 @@
 {
-    Gestion de l'inventaire et du coffre de la chambre
+    Gestion de l'inventaire, des équipements et du coffre de la chambre
 }
 unit Inventaire;
 
@@ -9,7 +9,8 @@ interface
         FamilleObjets = (
             RIEN,
             POTION, BOMBE,
-            CASQUE, TORSE, GANTS, JAMBIERES, BOTTES);
+            CASQUE, TORSE, GANTS, JAMBIERES, BOTTES,
+            PARTIEMONSTRE);
 
         // Enregistrement qui représente un ou plusieurs objets identiques
         TypeObjets = record
@@ -17,20 +18,6 @@ interface
             idObjet,
             quantite: Integer;
         end;
-
-        TypeInventaire = array [0..8] of TypeObjets;
-
-        // Enregistrement contenant les différents équipements
-        // ... (représentés par des entiers) du joueur.
-        TypeEquipement = record
-            casque,
-            torse,
-            gants,
-            jambieres,
-            bottes: Integer;
-        end;
-
-        TypeCoffre = array [0..29] of TypeObjets;
 
         // initialise l'inventaire
         procedure initialiserInventaire;
@@ -53,7 +40,7 @@ interface
 
 implementation
 
-    var _inventaire: TypeInventaire;
+    var _inventaire: array [0..8] of TypeObjets;
 
     // ...initialise l'inventaire
     procedure initialiserInventaire;

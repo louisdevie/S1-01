@@ -6,8 +6,18 @@ interface
 uses Inventaire;
 /////////////////////////////DES TYPES/////////////////////////////
 type
+  //type Prix Object qui donne les prix aux objects
+  typePrixObjet = RECORD
+     CASQUE    : Integer ;
+     TORSE     : Integer;
+     GANTS     : Integer;
+     JAMBIERES : Integer;
+     BOTTES    : Integer;
+     POTION    : Integer;
+     BOMBE     : Integer ;
+  end;
 
-  //type bombe qui contient le nom et l'effet de la bombe
+  //type Bombe qui contient le nom et l'effet de la bombe
   typeBombe = RECORD
     nom    : string;
     degat  : Integer;
@@ -15,7 +25,7 @@ type
   //tableau contient 3 bombes
   tabBombe   = array[1..3] of typeBombe;
 
-  //type equipement qui contient des equipements du joueur
+  //type Equipement qui contient des equipements du joueur
   typeEquipement = RECORD
     casque    : Integer;
     torse     : Integer;
@@ -25,44 +35,46 @@ type
     bombe     : typeBombe;
    end;
 
-  //type potion qui contient les caracteristiques des differents potions
+  //type Potion qui contient les caracteristiques des differents potions
   typePotion = RECORD
-    vie    : Integer;
-    degat  : Integer;
-    armure : Integer;
+    potionVie    : Integer;
+    potionDegat  : Integer;
+    potionArmure : Integer;
   end;
 
-  //typeInventaire qui contient les equipements et les potions
+  //type Inventaire qui contient les equipements et les potions
   typeInventaire  = RECORD
     equipement : typeEquipement;
     potion     : typePotion;
     // peut etre à ajouter type arme et type armure
   end;
 
-  //typeArme qui contient
+  //type Arme qui contient
   typeArme = RECORD
     nom    : String;
     degats : Integer;
   end;
   //tableau contient 3 armes
+  //de base j'ai pensé à faire plusieurs armes mais je ne suis pas très bon en code du coup j'ai decidé de faire une seule arme
   tabArme    = array[1..3] of typeArme;
 
-  //typeArmure qui contient des informations de l'armure
+  //type Armure qui contient des informations de l'armure
   typeArmure = RECORD
     nom     : String;
     defense : Integer;
   end;
   //tableau contient 3 armures
+  //de base j'ai pensé à faire plusieurs armures mais je ne suis pas très bon en code du coup j'ai decidé de faire une seule armure
   tabArmure   = array[1..3] of typeArmure;
 
-  //typeMatiere cotient les informations des matières à récupèrer après avoir gagner le monstrer
+  //type Matiere cotient les informations des matières à récupèrer après avoir gagner le monstrer
    typeMatiere = RECORD
      nom     : string;
      compter : Integer;
      quantite: Integer;
   end;
 
-  //typePersonnage contient des elements et les informations du personnage
+  //type Personnage contient des elements et les informations du personnage
   typePersonnage = record
     Nom    :string;
     Sexe   :string;
@@ -79,7 +91,13 @@ type
 
   end;
 
-  //typeMonstre contient des elements et les informations du monstre
+  //type Ressource qui contient la ressource tombé apres avoir tué le monstre
+  typeRessource = RECORD
+    nom      : string;
+    quantite : Integer ;
+  end;
+
+  //type Monstre contient des elements et les informations du monstre
   typeMonstre = RECORD
     nom    : string;
     vie    : Integer;
@@ -87,11 +105,21 @@ type
     armure : Integer;
     battu  : boolean;
     dropArgent  : Integer;
+    dropRessoucre : typeRessource;
   end;
 
-  //typeCantine qui contient les un repas qui donne un bonus
+
+
+  //type Bonus qui donne des bonus au pesonnage
+  typeBonus = RECORD
+    bonusVie    : Integer;
+    bonusDegat  : Integer;
+    bonusArmure : Integer;
+  end;
+
+  //typePlat qui contient  un repas qui donne des bonus
   typePlat = RECORD
-    bonus : typePotion;
+    bonus : typeBonus;
   end;
 
   //typeObjetMarchand contient des objets qu'on peut acheter au marché
